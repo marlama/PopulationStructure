@@ -64,3 +64,38 @@ awk '{print $2"\t"$1}' Target_ReferenceData_LD0.4_Unrelated.fam > Target_Referen
 
 ### Run PCA
 PCA.R 
+
+## ADMIXTURE
+### to Run
+cd /folder/ADMIXTURE/
+
+for K in {3..9}; do for J in bed bim fam; do cp Target_ReferenceData_LD0.4_Unrelated.${J} /folder/ADMIXTURE/ccc1_K${K}.${J}; done ; done
+
+for K in {3..9}; do for rep in {1..15} ; do admixture -j512 -s time --cv /folder/ADMIXTURE/ccc1_K${K}.bed ${K} | tee /folder/ccc1_K${K}_replicate_${rep}.log; mv /folder/ADMIXTURE/ccc1_K${K}.${K}.P /folder/ADMIXTURE/ccc1_K${K}_replicate_${rep}.P ; mv /folder/ADMIXTURE/ccc1_K${K}.${K}.Q /folder/ADMIXTURE/ccc1_K${K}_replicate_${rep}.Q; done ; done
+
+
+### Select Best Runs
+for K in $(seq 3 9); do grep "^Loglikelihood" /folder/ADMIXTURE/ccc1_K${K}_replicate_*.log |sort -k2 -n | cut -d"." -f1-2 | tail -1 >> list_tplot_TargetReference.txt ; done
+
+cp best runs to runs_toplot/
+
+### Managing Data, Used scripts from https://github.com/ldgh/ needed to be requested for academic pourpose. scripts nedded: 
+automatiza.pl
+ordenador_10.pl
+escolheCores2.pl
+
+cd /folder/ADMIXTURE/runs_toplot/
+
+for K in $(seq 3 9); do perl automatiza.pl -input Target_ReferenceData_LD0.4_Unrelated.fam -lista Target_Reference_CorrespondentList.txt -q /folder/ADMIXTURE/runs_toplot/ccc1_K${K}_replicate_*.Q; sed 's/ /\t/g' InputGrafico.txt > /folder/ADMIXTURE/runs_toplot/toplot2/InputGrafico_${K}.txt ; done
+
+cd /folder/ADMIXTURE/runs_toplot/toplot2/
+
+for i in $(seq 3 9); do printf "ID\tPOP" > line_head_${i}.txt ; for j in $(seq 1 $i); do printf "\tC$j" >> line_head_${i}.txt; done ; printf "\n" >> line_head_${i}.txt; done ; for i in $(seq 3 9); do cat line_head_${i}.txt InputGrafico_${i}.txt > 2sort_${i}.txt; done
+
+for i in $(seq 3 9); do perl ordenador_10.pl -lista ListaOrdemPop.txt -input 2sort_${i}.txt; cat OrdenadaoDaMassa_1.txt > 2escolhe_K${i}.txt; rm -f OrdenadaoDaMassa_1.txt; done
+
+perl escolheCores2.pl -cores Cores -input ListaFilesInput.txt -output plotADMIXTURE_Rscript
+
+### Plot ADMIXTURE
+
+plotADMIXTURE_Rscript.R
