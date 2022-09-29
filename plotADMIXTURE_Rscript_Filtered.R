@@ -1,3 +1,8 @@
+# Adapted from LDGH scripts (https://github.com/ldgh)
+# Colaboration:
+# Thiago Peixoto Leal (thpeixotol@hotmail.com)
+# Victor Borba Pua (vicbp1@gmail.com )
+
 tbl0 = read.table(file="2escolhe_K2_Filtered.txt", header = T, sep = '\t', fill= TRUE)
 tbl0_2 <- tbl0[-grep('ID', colnames(tbl0))]
 names(tbl0_2)
@@ -70,7 +75,7 @@ maxplotX=10
 minplotY=0.1357
 maxplotY=0.1382
 
-pdf("plotADMIXTURE_ASD_Filtered.pdf", width = 30, height = 20)
+pdf("plotADMIXTURE_Filtered.pdf", width = 30, height = 20)
 par(mfrow=c(10,1), mar = c(1,1,1,1)+0.1,mgp=c(3,3,2))
 #barplot(t(as.matrix(tbl0_3)),yaxt='n',col = c("blue","violet"),beside=F,border=NA, xlim=c(0,(  nrow+300)))
 #legend(x =     nrow+260, y = 0.8, c("K=2"), bty = "n",cex=1.8)
