@@ -5,7 +5,7 @@ Pipeline including Quality Control and steps to run PCA and ADMIXTURE
 ### For Positions
 awk '{print "chr"$1"\t"$4}' FileReference.bim > File_UpdateID_POS.txt
  
-for chr in $(seq 1 22) ; do  vcftools --gzvcf TargetFile_chr${chr}.vcf.gz --positions File_UpdateID_POS.txt --recode --stdout | gzip -c > TargetFile_SNPsReference_chr${chr}.vcf.gz ; done
+for chr in (1..22) ; do  vcftools --gzvcf TargetFile_chr${chr}.vcf.gz --positions File_UpdateID_POS.txt --recode --stdout | gzip -c > TargetFile_SNPsReference_chr${chr}.vcf.gz ; done
 
 ## Merged chr and filter Biallelic Only
 
@@ -78,7 +78,7 @@ for K in {3..9}; do for rep in {1..15} ; do admixture -j512 -s time --cv /folder
 
 
 ### Select Best Runs
-for K in $(seq 3 9); do grep "^Loglikelihood" /folder/ADMIXTURE/ccc1_K${K}_replicate_*.log |sort -k2 -n | cut -d"." -f1-2 | tail -1 >> list_tplot_TargetReference.txt ; done
+for K in (3..9); do grep "^Loglikelihood" /folder/ADMIXTURE/ccc1_K${K}_replicate_*.log |sort -k2 -n | cut -d"." -f1-2 | tail -1 >> list_tplot_TargetReference.txt ; done
 
 cp best runs to runs_toplot/
 
@@ -89,13 +89,13 @@ escolheCores2.pl
 
 cd /folder/ADMIXTURE/runs_toplot/
 
-for K in $(seq 3 9); do perl automatiza.pl -input Target_ReferenceData_LD0.4_Unrelated.fam -lista Target_Reference_CorrespondentList.txt -q /folder/ADMIXTURE/runs_toplot/ccc1_K${K}_replicate_*.Q; sed 's/ /\t/g' InputGrafico.txt > /folder/ADMIXTURE/runs_toplot/toplot2/InputGrafico_${K}.txt ; done
+for K in (3..9); do perl automatiza.pl -input Target_ReferenceData_LD0.4_Unrelated.fam -lista Target_Reference_CorrespondentList.txt -q /folder/ADMIXTURE/runs_toplot/ccc1_K${K}_replicate_*.Q; sed 's/ /\t/g' InputGrafico.txt > /folder/ADMIXTURE/runs_toplot/toplot2/InputGrafico_${K}.txt ; done
 
 cd /folder/ADMIXTURE/runs_toplot/toplot2/
 
-for i in $(seq 3 9); do printf "ID\tPOP" > line_head_${i}.txt ; for j in $(seq 1 $i); do printf "\tC$j" >> line_head_${i}.txt; done ; printf "\n" >> line_head_${i}.txt; done ; for i in $(seq 3 9); do cat line_head_${i}.txt InputGrafico_${i}.txt > 2sort_${i}.txt; done
+for i in (3..9); do printf "ID\tPOP" > line_head_${i}.txt ; for j in $(seq 1 $i); do printf "\tC$j" >> line_head_${i}.txt; done ; printf "\n" >> line_head_${i}.txt; done ; for i in $(seq 3 9); do cat line_head_${i}.txt InputGrafico_${i}.txt > 2sort_${i}.txt; done
 
-for i in $(seq 3 9); do perl ordenador_10.pl -lista ListaOrdemPop.txt -input 2sort_${i}.txt; cat OrdenadaoDaMassa_1.txt > 2escolhe_K${i}.txt; rm -f OrdenadaoDaMassa_1.txt; done
+for i in (3..9); do perl ordenador_10.pl -lista ListaOrdemPop.txt -input 2sort_${i}.txt; cat OrdenadaoDaMassa_1.txt > 2escolhe_K${i}.txt; rm -f OrdenadaoDaMassa_1.txt; done
 
 perl escolheCores2.pl -cores Cores -input ListaFilesInput.txt -output plotADMIXTURE_Rscript
 
