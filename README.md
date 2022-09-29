@@ -1,5 +1,5 @@
 # PopulationStructure
-Pipeline including Quality Control and steps to run PCA and ADMIXTURE
+Pipeline including Quality Control and steps to run PCA (SNPRelate (doi: 10.1093/bioinformatics/bts606)) and ADMIXTURE (DOI: 10.1101/gr.094052.109)
 
 ## Filter just SNPs common with  Reference data
 ### For Positions
