@@ -83,10 +83,10 @@ for K in (3..9); do grep "^Loglikelihood" /folder/ADMIXTURE/ccc1_K${K}_replicate
 
 cp best runs to runs_toplot/
 
-### Managing Data, Used scripts from https://github.com/ldgh/ needed to be requested for academic pourpose. scripts nedded: 
-automatiza.pl
-ordenador_10.pl
-escolheCores2.pl
+### Managing Data. Used scripts from https://github.com/ldgh/ that needed to be requested for academic pourpose. scripts nedded: 
+- automatiza.pl
+- ordenador_10.pl
+- escolheCores2.pl
 
 cd /folder/ADMIXTURE/runs_toplot/
 
