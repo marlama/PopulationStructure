@@ -94,7 +94,7 @@ for K in (3..9); do perl automatiza.pl -input Target_ReferenceData_LD0.4_Unrelat
 
 cd /folder/ADMIXTURE/runs_toplot/toplot2/
 
-for i in (3..9); do printf "ID\tPOP" > line_head_${i}.txt ; for j in $(seq 1 $i); do printf "\tC$j" >> line_head_${i}.txt; done ; printf "\n" >> line_head_${i}.txt; done ; for i in $(seq 3 9); do cat line_head_${i}.txt InputGrafico_${i}.txt > 2sort_${i}.txt; done
+for i in (3..9); do printf "ID\tPOP" > line_head_${i}.txt ; for j in $(seq 1 $i); do printf "\tC$j" >> line_head_${i}.txt; done ; printf "\n" >> line_head_${i}.txt; done ; for i in (3..9); do cat line_head_${i}.txt InputGrafico_${i}.txt > 2sort_${i}.txt; done
 
 for i in (3..9); do perl ordenador_10.pl -lista ListaOrdemPop.txt -input 2sort_${i}.txt; cat OrdenadaoDaMassa_1.txt > 2escolhe_K${i}.txt; rm -f OrdenadaoDaMassa_1.txt; done
 
