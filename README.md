@@ -103,3 +103,6 @@ perl escolheCores2.pl -cores Cores -input ListaFilesInput.txt -output plotADMIXT
 ### Plot ADMIXTURE
 
 plotADMIXTURE_Rscript.R
+
+# Please Cite:
+Borda V, Alvim I, Mendes M, Silva-Carvalho C, Soares-Souza GB, Leal TP, Furlan V, Scliar MO, Zamudio R, Zolini C, Araújo GS. The genetic structure and adaptation of Andean highlanders and Amazonians are influenced by the interplay between geography and culture. Proceedings of the National Academy of Sciences. 2020 Dec 22;117(51):32557-65.
