@@ -16,20 +16,21 @@ plink2 --vcf TargetFile_ReferenceSNPs_BiallelicOnly.vcf.gz --make-bed --out Targ
 
 ## Run SmartQC
 https://github.com/ldgh/Smart-Cleaning
-Remove chr 0
-Remove duplicate data
-Remove missing data
-Infer individual sex
-Remove A|T and C|G variants
-Remove 100% heterozigotes variants
-dbSNPname
-liftOver
+- Remove chr 0
+- Remove duplicate data
+- Remove missing data
+- Infer individual sex
+- Remove A|T and C|G variants
+- Remove 100% heterozigotes variants
+- dbSNPname
+- liftOver
 
 ## Maybe will need add Case/Control information and update rs IDs before merge
 
 ## Merge
 https://github.com/ldgh/MergedCleanData
 But you can also use plink --bmerge
+
 python3 mergeCleanData.py -d Target_Referencia_Database.txt -p programas.txt -f /folder/ -o Target_ReferenceData
 
 ## Make a list of SNPs in LD to be removed for each pop separatedly
